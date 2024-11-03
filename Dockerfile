@@ -1,5 +1,7 @@
 FROM ros:rolling-ros-base-noble
 
+SHELL ["/bin/bash", "-c"]
+
 # install wget
 RUN apt-get update && apt-get install -y wget
 
