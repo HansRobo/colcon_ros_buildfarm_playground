@@ -10,11 +10,11 @@ RUN mkdir -p /root/ros2_ws/src
 
 WORKDIR /root/ros2_ws
 
-RUN wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel/crb.repos
+RUN wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/crb.repos
 
 RUN source /opt/ros/humble/setup.bash && \
     vcs import src < crb.repos && \
     colcon build
 
 RUN source /root/ros2_ws/install/setup.bash && \
-    ros_buildfarm release --continue-on-error
+    ros_buildfarm release --continue-on-error --config-url https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/index.yaml
