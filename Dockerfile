@@ -16,5 +16,7 @@ RUN source /opt/ros/rolling/setup.bash && \
     vcs import < crb.repos && \
     colcon build
 
+RUN cd /root/ros2_ws && ls -R
+
 RUN source /root/ros2_ws/install/setup.bash && \
     ros_buildfarm release
