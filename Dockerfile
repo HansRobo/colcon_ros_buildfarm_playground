@@ -1,4 +1,4 @@
-FROM ros:rolling-ros-base-noble
+FROM ros:humble-ros-base-jammy
 
 SHELL ["/bin/bash", "-c"]
 
