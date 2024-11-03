@@ -17,4 +17,4 @@ RUN source /opt/ros/humble/setup.bash && \
     colcon build
 
 RUN source /root/ros2_ws/install/setup.bash && \
-    ros_buildfarm release
+    ros_buildfarm release --continue-on-error
