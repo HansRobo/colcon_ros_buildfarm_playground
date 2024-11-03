@@ -12,7 +12,7 @@ WORKDIR /root/ros2_ws
 
 RUN wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel/crb.repos
 
-RUN source /opt/ros/rolling/setup.bash && \
+RUN source /opt/ros/humble/setup.bash && \
     vcs import src < crb.repos && \
     colcon build
 
