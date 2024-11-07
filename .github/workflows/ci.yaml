@@ -37,11 +37,14 @@ jobs:
         run: mkdir -p /root/ros2_ws/src
 
       - name: get repos
-        run: wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/crb.repos
+        run: |
+          cd /root/ros2_ws
+          wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/crb.repos
 
       - name: colcon build
         run: |
           # service docker start
+          cd /root/ros2_ws
           source /opt/ros/humble/setup.bash
           vcs import src < crb.repos
           rosdep update
