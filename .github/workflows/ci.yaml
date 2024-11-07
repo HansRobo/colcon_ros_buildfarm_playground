@@ -47,6 +47,7 @@ jobs:
           rosdep update
           rosdep install -riy --from-paths src
           colcon build
+        shell: bash
         
   build_docker:
     name: build docker
