@@ -28,8 +28,10 @@ jobs:
           chmod +x ./get-docker.sh
           ./get-docker.sh
 
-      - name: aaa
-        run: cat /etc/init.d/docker
+
+      - name: fix setup script to avoid error
+        run: sed -i 's/ulimit -Hn 524288/ulimit -n 524288/g' /etc/init.d/docker
+        # https://forums.docker.com/t/etc-init-d-docker-62-ulimit-error-setting-limit-invalid-argument-problem/139424
         
       - name: make workspace
         run: mkdir -p /root/ros2_ws/src
