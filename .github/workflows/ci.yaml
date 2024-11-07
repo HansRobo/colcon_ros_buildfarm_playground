@@ -28,6 +28,9 @@ jobs:
           chmod +x ./get-docker.sh
           ./get-docker.sh
 
+      - name: aaa
+        run: cat /etc/init.d/docker
+        
       - name: make workspace
         run: mkdir -p /root/ros2_ws/src
 
