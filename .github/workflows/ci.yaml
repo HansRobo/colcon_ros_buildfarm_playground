@@ -19,8 +19,11 @@ jobs:
     container:
       image: ros:humble-ros-base-jammy
     steps:
-      - name: Install docker for ubuntu runner
-        uses: docker/setup-buildx-action@v3
+      - name: Install docker
+        run: |
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          chmod +x ./get-docker.sh
+          ./get-docker.sh
 
       - name: install tools
         run: apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
