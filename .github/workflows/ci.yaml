@@ -20,7 +20,9 @@ jobs:
       image: ghcr.io/ibis-ssl/docker-ros2-images:humble
     steps:
       - name: install tools
-        run: sudo apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget python3-jenkinsapi ca-certificates curl
 
       - name: Install docker
         run: |
