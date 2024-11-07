@@ -3,7 +3,7 @@ FROM ros:humble-ros-base-jammy
 SHELL ["/bin/bash", "-c"]
 
 # install wget
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update && apt-get install -y wget python3-jenkinsapi
 
 # download repos
 RUN mkdir -p /root/ros2_ws/src
