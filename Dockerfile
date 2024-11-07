@@ -15,6 +15,12 @@ RUN wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/he
 RUN source /opt/ros/humble/setup.bash && \
     vcs import src < crb.repos && \
     colcon build
+    
+RUN source /opt/ros/humble/setup.bash && \
+    vcs import src < crb.repos && \
+    rosdep update && \
+    rosdep install -riy --from-paths src && \
+    colcon build
 
 RUN source /root/ros2_ws/install/setup.bash && \
     ros_buildfarm release --continue-on-error --config-url https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/ros_buildfarm_config/index.yaml
