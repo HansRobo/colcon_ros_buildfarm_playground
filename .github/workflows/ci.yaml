@@ -27,6 +27,7 @@ jobs:
 
       - name: Install docker
         run: |
+          cd /home/developer
           curl -fsSL https://get.docker.com -o get-docker.sh
           sudo chmod +x ./get-docker.sh
           ./get-docker.sh
@@ -35,19 +36,16 @@ jobs:
       - name: fix setup script to avoid error
         run: sudo sed -i 's/ulimit -Hn 524288/ulimit -n 524288/g' /etc/init.d/docker
         # https://forums.docker.com/t/etc-init-d-docker-62-ulimit-error-setting-limit-invalid-argument-problem/139424
-        
-      - name: make workspace
-        run: mkdir -p /root/ros2_ws/src
 
       - name: get repos
         run: |
-          cd /root/ros2_ws
+          cd /home/developer/ibis_ws
           wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/crb.repos
 
       - name: colcon build
         run: |
           # service docker start
-          cd /root/ros2_ws
+          cd /home/developer/ibis_ws
           source /opt/ros/humble/setup.bash
           vcs import src < crb.repos
           rosdep update
@@ -57,7 +55,7 @@ jobs:
 
       - name: run buildfarm
         run: |
-          source /root/ros2_ws/install/setup.bash
+          source /home/developer/ibis_ws/install/setup.bash
           ros_buildfarm release --continue-on-error --config-url https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/ros_buildfarm_config/index.yaml
         shell: bash
   build_docker:
