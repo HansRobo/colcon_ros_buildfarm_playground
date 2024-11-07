@@ -17,4 +17,4 @@ RUN source /opt/ros/humble/setup.bash && \
     colcon build
 
 RUN source /root/ros2_ws/install/setup.bash && \
-    ros_buildfarm release --continue-on-error --config-url https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/index.yaml
+    ros_buildfarm release --continue-on-error --config-url https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/ros_buildfarm_config/index.yaml
