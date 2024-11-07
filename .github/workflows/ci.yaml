@@ -51,7 +51,12 @@ jobs:
           rosdep install -riy --from-paths src
           colcon build
         shell: bash
-        
+
+      - name: run buildfarm
+        run: |
+          source /root/ros2_ws/install/setup.bash
+          ros_buildfarm release --continue-on-error --config-url https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/ros_buildfarm_config/index.yaml
+        shell: bash
   build_docker:
     name: build docker
     runs-on: ubuntu-latest
