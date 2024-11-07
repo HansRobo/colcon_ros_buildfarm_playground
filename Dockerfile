@@ -3,7 +3,20 @@ FROM ros:humble-ros-base-jammy
 SHELL ["/bin/bash", "-c"]
 
 # install wget
-RUN apt-get update && apt-get install -y wget python3-jenkinsapi
+RUN apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
+
+# setup docker
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc
+
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+  apt-get update
+
+RUN  apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # download repos
 RUN mkdir -p /root/ros2_ws/src
