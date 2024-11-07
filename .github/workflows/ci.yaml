@@ -19,14 +19,14 @@ jobs:
     container:
       image: ros:humble-ros-base-jammy
     steps:
+      - name: install tools
+        run: apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
+
       - name: Install docker
         run: |
           curl -fsSL https://get.docker.com -o get-docker.sh
           chmod +x ./get-docker.sh
           ./get-docker.sh
-
-      - name: install tools
-        run: apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
 
       - name: make workspace
         run: mkdir -p /root/ros2_ws/src
