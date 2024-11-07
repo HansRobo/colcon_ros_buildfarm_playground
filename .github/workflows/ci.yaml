@@ -18,6 +18,7 @@ jobs:
           - /var/run/docker.sock:/var/run/docker.sock:ro
     container:
       image: ghcr.io/ibis-ssl/docker-ros2-images:humble
+      options: --user developer
     steps:
       - name: install tools
         run: |
