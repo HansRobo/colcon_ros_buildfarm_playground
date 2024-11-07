@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates
 
 # setup docker
 RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
+    chmod +x ./get-docker.sh && \ 
     ./get-docker.sh
 
 # download repos
