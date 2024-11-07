@@ -7,6 +7,39 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged --shm-size=2g
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+    container:
+      image: ros:humble-ros-base-jammy
+    steps:
+      - name: Install docker for ubuntu runner
+        uses: docker/setup-buildx-action@v3
+
+      - name: install tools
+        run: apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
+
+      - name: make workspace
+        run: mkdir -p /root/ros2_ws/src
+
+      - name: get repos
+        run: wget https://raw.githubusercontent.com/HansRobo/colcon-ros-buildfarm/refs/heads/devel-customized/crb.repos
+
+      - name: colcon build
+        run: |
+          service docker start
+          source /opt/ros/humble/setup.bash
+          vcs import src < crb.repos
+          rosdep update
+          rosdep install -riy --from-paths src
+          colcon build
+        
   build_docker:
     name: build docker
     runs-on: ubuntu-latest
