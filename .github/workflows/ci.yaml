@@ -17,20 +17,20 @@ jobs:
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock:ro
     container:
-      image: ros:humble-ros-base-jammy
+      image: ghcr.io/ibis-ssl/docker-ros2-images:humble
     steps:
       - name: install tools
-        run: apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
+        run: sudo apt-get update && apt-get install -y wget python3-jenkinsapi ca-certificates curl
 
       - name: Install docker
         run: |
           curl -fsSL https://get.docker.com -o get-docker.sh
-          chmod +x ./get-docker.sh
+          sudo chmod +x ./get-docker.sh
           ./get-docker.sh
 
 
       - name: fix setup script to avoid error
-        run: sed -i 's/ulimit -Hn 524288/ulimit -n 524288/g' /etc/init.d/docker
+        run: sudo sed -i 's/ulimit -Hn 524288/ulimit -n 524288/g' /etc/init.d/docker
         # https://forums.docker.com/t/etc-init-d-docker-62-ulimit-error-setting-limit-invalid-argument-problem/139424
         
       - name: make workspace
